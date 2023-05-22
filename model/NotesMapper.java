@@ -2,8 +2,8 @@ package model;
 
 
 public class NotesMapper {
-    public String map(Notes notes){
-        return String.format("s%,s%,s%,s%,", notes.getId(), notes.getHeadline(), notes.getText(), notes.getDateOfFilling());
+    public String map(Notes note){
+        return String.format("s%,s%,s%,s%,", note.getId(), note.getHeadline(), note.getText(), note.getDateOfFilling());
     }
     
     public Notes map(String line){
