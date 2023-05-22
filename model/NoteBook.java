@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface NoteBook {
     List<Notes> getAllNotes();
-    String createNote(Notes notes);
+    String createNote(Notes note);
 
-    void updateNote(Notes notes);
+    void updateNote(Notes note);
     void deleteNote(String id);
 }
