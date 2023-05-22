@@ -13,7 +13,7 @@ public class NotesController {
     }
 
     public void saveNote(Notes note) {
-        NoteBook.createNote(note);
+        noteBook.createNote(note);
     }
 
     public Notes readNote(String noteId) throws Exception {
