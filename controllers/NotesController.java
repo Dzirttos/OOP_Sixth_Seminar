@@ -17,8 +17,8 @@ public class NotesController {
     }
 
     public Notes readNote(String noteId) throws Exception {
-        List<Notes> allNotes = noteBook.getAllNotes();
-        for (Notes note : allNotes) {
+        List<Notes> notes = noteBook.getAllNotes();
+        for (Notes note : notes) {
             if (note.getId().equals(noteId)) {
                 return note;
             }
@@ -31,7 +31,7 @@ public class NotesController {
     }
 
     public void updateNote(Notes updatedNote) {
-        noteBook.createNote(updatedNote);
+        noteBook.updateNote(updatedNote);
     }
 
     public void deleteNote(String noteId) {

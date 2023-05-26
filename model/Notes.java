@@ -2,7 +2,22 @@ package model;
 
 public class Notes {
     private String id = "";
+    private String headline;
+    private String text;
+    private String dateOfFilling;
 
+    public Notes(String headline, String text, String dateOfFilling) {
+        this.headline = headline;
+        this.text = text;
+        this.dateOfFilling = dateOfFilling;
+    }
+
+
+    public Notes(String id, String headline, String text, String dateOfFilling) {
+        this(headline, text, dateOfFilling);
+        this.id = id;
+    }
+    
     public String getId() {
         return id;
     }
@@ -11,7 +26,7 @@ public class Notes {
         this.id = id;
     }
 
-    private String headline;
+   
     public String getHeadline() {
         return headline;
     }
@@ -20,7 +35,6 @@ public class Notes {
         this.headline = headline;
     }
 
-    private String text;
     public String getText() {
         return text;
     }
@@ -28,8 +42,6 @@ public class Notes {
     public void setText(String text) {
         this.text = text;
     }
-
-    private String dateOfFilling;
 
     public String getDateOfFilling() {
         return dateOfFilling;
@@ -39,19 +51,11 @@ public class Notes {
         this.dateOfFilling = dateOfFilling;
     }
 
-    public Notes(String headline, String text, String dateOfFilling) {
-        this.headline = headline;
-        this.text = text;
-        this.dateOfFilling = dateOfFilling;
-    }
 
-    public Notes(String id, String headline, String text, String dateOfFilling) {
-        this(headline, text, dateOfFilling);
-        this.id = id;
-    }
 
     @Override
     public String toString() {
-        return String.format("Idenification Number: s%, Headlline: s%, Text: s%, Date of filling the note: s%", id, headline, text, dateOfFilling);
+        return String.format("Idenification Number: %s\nHeadlline: %s\nText: %s\nDate of filling the note: %s", id, headline, text, dateOfFilling);
     }
+
 }

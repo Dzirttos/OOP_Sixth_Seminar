@@ -3,84 +3,84 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteBookFile implements NoteBook{
-   
+public class NoteBookFile implements NoteBook {
+
     private NotesMapper notesMapper;
 
-    public NotesMapper getNotesMapper() {
-        return notesMapper;
-    }
 
-    // public void setNotesMapper(NotesMapper notesMapper) {
-    //     this.notesMapper = notesMapper;
+    // public void NotesMapper(NotesMapper notesMapper) {
+    //     this.notesMapper = new NotesMapper();
     // }
+
+    public NotesMapper getNotesMapper() {
+        return notesMapper = new NotesMapper();
+    }
 
     private NotesOperation notesOperation;
 
-    public NotesOperation getNotesOperation() {
-        return notesOperation;
+    public NoteBookFile(NotesOperation notesOperation) {
+        this.notesOperation = notesOperation;
     }
 
     @Override
     public List<Notes> getAllNotes() {
         List<String> lines = notesOperation.readAllLines();
-        List<Notes> allNotes = new ArrayList<>();
+        List<Notes> notes = new ArrayList<>();
         for (String line : lines) {
-            allNotes.add(notesMapper.map(line));
+            notes.add(getNotesMapper().map(line));
         }
-        return allNotes;
+        return notes;
     }
-
 
     @Override
     public String createNote(Notes note) {
-        List<Notes> allNotes = getAllNotes();
+        List<Notes> notes = getAllNotes();
         int max = 0;
-        for (Notes item : allNotes){
+        for (Notes item : notes) {
             int id = Integer.parseInt(item.getId());
-            if (max < id) max = id;
+            if (max < id) {
+                max = id;
+            }
         }
         int newId = max + 1;
-        String id = String.format("%s", newId);
+        String id = String.format("%d", newId);
         note.setId(id);
-        allNotes.add(note);
-        saveAllNotes(allNotes);
+        notes.add(note);
+        saveAllNotes(notes);
         return id;
 
     }
-    
 
-    private void saveAllNotes(List<Notes> allNotes) {
+    private void saveAllNotes(List<Notes> notes) {
         List<String> lines = new ArrayList<>();
-        for (Notes item : allNotes){
+        for (Notes item : notes) {
             lines.add(notesMapper.map(item));
         }
         notesOperation.saveAllLines(lines);
 
     }
 
-
     @Override
     public void updateNote(Notes updatedNote) {
-        List<Notes> allNotes = this.getAllNotes();
-        for (Notes note : allNotes){
-            if(note.getId().equals(updatedNote.getId())){
+        List<Notes> notes = this.getAllNotes();
+        for (Notes note : notes) {
+            if (note.getId().equals(updatedNote.getId())) {
                 note.setHeadline(updatedNote.getHeadline());
                 note.setText(updatedNote.getText());
                 note.setDateOfFilling(updatedNote.getDateOfFilling());
             }
         }
-        saveAllNotes(allNotes);
+        saveAllNotes(notes);
     }
 
     @Override
     public void deleteNote(String id) {
-        List<Notes> allNotes = this.getAllNotes();
-        for (Notes note : allNotes){
-            if (note.getId().equals(id)) allNotes.remove(note);
+        List<Notes> notes = this.getAllNotes();
+        for (Notes note : notes) {
+            if (note.getId().equals(id))
+                notes.remove(note);
         }
-        saveAllNotes(allNotes);
+        saveAllNotes(notes);
     }
-    
 
 }

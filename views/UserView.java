@@ -3,8 +3,6 @@ package views;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.sound.midi.Synthesizer;
-
 import controllers.NotesController;
 import model.Notes;
 
@@ -55,7 +53,7 @@ public class UserView {
                         break;
                     case DELETE:
                         deleteNote();
-                        break;
+                        // break;
                 }
 
             } catch (Exception e) {
@@ -64,14 +62,14 @@ public class UserView {
         }
     }
 
-    private String startUI(String message){ 
+    private String startUI(String message) {
         Scanner in = new Scanner(System.in);
         System.out.println(message);
         return in.nextLine();
     }
 
-    private String readNote(){
-        String id = startUI("Note's id: ");
+    private String readNote() {
+        String id = startUI("Note id: ");
         try {
             Notes note = notesController.readNote(id);
             System.out.println(note);
@@ -81,13 +79,11 @@ public class UserView {
         return id;
     }
 
-    private Notes inputNote(){
+    private Notes inputNote() {
         String headline;
         String text;
         String dateOfFilling;
-        do {
-            headline = startUI("Enter the headline: ");
-        } while (validate.checkHeadline(headline));
+        headline = startUI("Enter the headline: ");
         text = startUI("Please enter your text for the note: ");
         do {
             dateOfFilling = startUI("Please enter the date of filling in DD.MM.YYYY format: ");
@@ -96,25 +92,25 @@ public class UserView {
         return new Notes(headline, text, dateOfFilling);
     }
 
-    private void createNote(){
+    private void createNote() {
         notesController.saveNote(inputNote());
     }
 
-    private void updateNote(){
+    private void updateNote() {
         String id = readNote();
         Notes updatedNote = inputNote();
         updatedNote.setId(id);
         notesController.updateNote(updatedNote);
     }
 
-        private void deleteNote() throws Exception{
+    private void deleteNote() throws Exception {
         String noteId = readNote();
         notesController.deleteNote(noteId);
     }
 
-    private void printAllNotes(){
-        List<Notes> allNotes = notesController.getNotes();
-        for (Notes note : allNotes){
+    private void printAllNotes() {
+        List<Notes> notes = notesController.getNotes();
+        for (Notes note : notes) {
             System.out.println(note);
         }
     }

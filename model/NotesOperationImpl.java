@@ -9,14 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class NotesOperationImpl implements NotesOperation{
+public class NotesOperationImpl implements NotesOperation {
 
     private String noteBookName;
 
-    public NotesOperationImpl(String noteBookName){
+    public NotesOperationImpl(String noteBookName) {
         this.noteBookName = noteBookName;
-        try (FileWriter writer  = new FileWriter(noteBookName,true)){
+        try (FileWriter writer = new FileWriter(noteBookName, true)) {
             writer.flush();
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
@@ -31,35 +30,35 @@ public class NotesOperationImpl implements NotesOperation{
             FileReader fileReader = new FileReader(file);
             BufferedReader reader = new BufferedReader(fileReader);
             String line = reader.readLine();
-            if (line != null){
+            if (line != null) {
                 lines.add(line);
             }
-            while (line != null){
+            while (line != null) {
                 line = reader.readLine();
-                if (line != null) lines.add(line);
+                if (line != null) {
+                    lines.add(line);
+                }
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();  
+            e.printStackTrace();
         }
         return lines;
     }
 
-
     @Override
     public void saveAllLines(List<String> lines) {
-        try {FileWriter writer = new FileWriter(noteBookName,false);
-            for (String line : lines){
+        try (FileWriter writer = new FileWriter(noteBookName, false)) {
+            for (String line : lines) {
                 writer.write(line);
-                writer.append("\n");
+                writer.append('\n');
             }
             writer.flush();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
-
         }
     }
-    
+
 }
